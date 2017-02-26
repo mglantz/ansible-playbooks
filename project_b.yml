@@ -1,6 +1,6 @@
 - name: Project B playbook
   hosts: all
   tasks:
-    - name: Project B task
+    - name: Project B test task
       debug:
         msg: "Project B task TEST version implemented"
