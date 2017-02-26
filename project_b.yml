@@ -1,0 +1,6 @@
+- name: Project B playbook
+  hosts: all
+  tasks:
+    - name: Project B task
+      debug:
+        msg: "Project B task MASTER/PROD version implemented"

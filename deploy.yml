@@ -1,0 +1,6 @@
+- name: Project B CICD deploy
+  hosts: all
+  tasks:
+    - name: Project B deploy task
+      debug:
+        msg: "Project B deployment task"
