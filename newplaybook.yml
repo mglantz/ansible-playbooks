@@ -1,0 +1,5 @@
+- name: Project B Test module
+  hosts: all
+  tasks:
+    - name: Project B Test module
+      doesnotexit: do_stuff

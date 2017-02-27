@@ -5,4 +5,4 @@
       debug:
         msg: "Project B test task"
     - name: Project B test trigger
-      command: /usr/bin/curl -s -k --data "host_config_key=a9596a7405ae2b9e22bba7df12b2555f" https://ansible.192.168.56.60.nip.io:443/api/v1/job_templates/12/callback/
+      command: /usr/bin/curl -s -k --data "host_config_key=184657fb599426c589363658a05aa83e" https://ansible.192.168.56.60.nip.io:443/api/v1/job_templates/19/callback/

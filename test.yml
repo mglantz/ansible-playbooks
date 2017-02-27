@@ -3,6 +3,6 @@
   tasks:
     - name: Project B test task
       debug:
-        msg: "Project B task test"
+        msg: "Project B deployment task"
     - name: Project B deployment trigger
-      command: /usr/bin/curl -s -k --data "host_config_key=01eedcb5fe27993c88e188ed6a8d21a6" https://ansible.192.168.56.60.nip.io:443/api/v1/job_templates/13/callback/
+      command: /usr/bin/curl -s -k --data "host_config_key=9c8e35de9abbcfd4cb360ffd96cb6e3d" https://ansible.192.168.56.60.nip.io:443/api/v1/job_templates/18/callback/
