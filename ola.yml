@@ -1,0 +1,6 @@
+- name: Hello Ola!
+  hosts: all
+ 
+  tasks:
+  - name: Hello Ola!
+    command: echo "Hi Ola! Tower is working." > /tmp/Ola
