@@ -1,0 +1,5 @@
+- name: Create file module
+  hosts: all
+  tasks:
+    - name: Create file
+command: /bin/echo thefilecontent > /tmp/itsthefile
