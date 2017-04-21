@@ -2,4 +2,4 @@
   hosts: all
   tasks:
     - name: Echo Anton
-      command: /bin/echo Anton > /tmp/Anton
+      command: /bin/bash -c "echo Anton > /tmp/anton"
