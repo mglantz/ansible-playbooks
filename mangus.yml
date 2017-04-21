@@ -1,6 +1,0 @@
-- name: Magnus Svensk echo test
-  hosts: all
-
-  tasks:
-    - name: Echo to tempfile
-    command: echo Test >> /tmp/testfile
