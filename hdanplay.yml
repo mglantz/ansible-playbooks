@@ -1,0 +1,2 @@
+- hosts: All
+  shell: echo "testar" >> /tmp/filehdan.sh
