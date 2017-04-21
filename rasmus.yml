@@ -1,0 +1,6 @@
+- name: Creating a file
+  template:
+    src: test.j2
+    dest: /tmp/acoolfile
+  with_items:
+	  - { variable: Coolstuff123 }
