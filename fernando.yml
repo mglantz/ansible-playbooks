@@ -1,2 +1,5 @@
-- name: print to stdout
-  action: command echo "hello"
+- name: print message
+  hosts: all
+  tasks:
+    - debug: 
+        msg: "testmessage"
