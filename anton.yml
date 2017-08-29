@@ -1,5 +1,0 @@
-- name: Anton module
-  hosts: all
-  tasks:
-    - name: Echo Anton
-      command: /bin/bash -c "echo Anton > /tmp/anton"
