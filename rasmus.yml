@@ -1,6 +1,0 @@
-- name: Creating a file
-  template:
-    src: test.j2
-    dest: /tmp/acoolfile
-  vars:
-    variable: CoolString123
