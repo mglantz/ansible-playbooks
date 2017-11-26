@@ -1,0 +1,9 @@
+- name: Install Tomcat application server
+  hosts: all
+  tasks:
+    name: install the latest version of Tomcat
+    yum:
+      name: tomcat
+      state: latest
+      debug:
+        msg: "Installed latest version of Tomcat Java App server."
