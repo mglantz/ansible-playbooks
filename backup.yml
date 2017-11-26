@@ -1,0 +1,7 @@
+- name: Backup install playbook
+  hosts: all
+  tasks:
+    - name: Install backup on Red Hat Enterprise Linux
+      debug:
+        msg: "Installed backup on RHEL instance "
+      when: ansible_distribution == 'Red Hat Enterprise Linux'
