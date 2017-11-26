@@ -10,4 +10,4 @@
       - restart tomcat
   handlers:
     - name: restart tomcat
-      service: name=httpd state=restarted
+      service: name=tomcat state=restarted
