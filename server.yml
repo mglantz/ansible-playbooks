@@ -4,4 +4,4 @@
   tasks:
     - name: Install VM with RHEL 7.4
       debug:
-        msg: "Installed VM ({{ server_name }} with RHEL 7.4"
+        msg: "Installed VM ({{ server_name }}) with RHEL 7.4"
