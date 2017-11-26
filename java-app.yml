@@ -7,7 +7,7 @@
         dest: /var/lib/tomcat/webapps/sample.war
         mode: 0777
       notify:
-      -restart tomcat
+      - restart tomcat
   handlers:
     - name: restart tomcat
       service: name=httpd state=restarted
