@@ -1,16 +1,13 @@
 - name: Install Java App
-  hosts: all
-  tasks:
-    - name: Download Java application
-      get_url:
-        url: https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war
-        dest: /var/lib/tomcat/webapps/sample.war
-        mode: 0777
-        notify:
-          -restart tomcat
+	hosts: all
+	tasks:
+    	- name: Download Java application
+      	get_url:
+        	url: https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war
+        	dest: /var/lib/tomcat/webapps/sample.war
+        	mode: 0777
+        	notify:
+        		-restart tomcat
     handlers:
-    - name: restart apache
-      service:
-        name=httpd
-        state=restarted
-        
+    	- name: restart apache
+      		service: name=httpd state=restarted
