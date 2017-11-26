@@ -1,7 +1,6 @@
 - name: Install Tomcat application server
   hosts: all
   tasks:
-    name: install the latest version of Tomcat
     yum:
       name: tomcat
       state: latest
