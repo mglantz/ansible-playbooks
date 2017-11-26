@@ -1,5 +1,7 @@
 - name: Install Tomcat Application server
   hosts: all
-  yum:
-    name: tomcat
-    state: present
+  tasks:
+    - name: Run yum install tomcat
+      yum:
+        name: tomcat
+        state: present
