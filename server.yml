@@ -1,0 +1,7 @@
+
+- name: Server install playbook
+  hosts: all
+  tasks:
+    - name: Install VM with RHEL 7.4
+      debug:
+        msg: "Installed VM with RHEL 7.4"
