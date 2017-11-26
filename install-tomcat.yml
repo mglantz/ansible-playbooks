@@ -5,5 +5,3 @@
     yum:
       name: tomcat
       state: latest
-      debug:
-        msg: "Installed latest version of Tomcat Java App server."
