@@ -3,5 +3,5 @@
   tasks:
     - name: Install monitoring on Red Hat Enterprise Linux
       debug:
-        msg: "Installed monitoring on RHEL instance "
+        msg: "Installed monitoring on RHEL instance"
       when: ansible_distribution == 'Red Hat Enterprise Linux'
