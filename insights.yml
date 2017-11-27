@@ -6,5 +6,5 @@
       yum:
         name: redhat-access-insights
         state: present
-    - name: Ensure tomcat service is enabled and started
+    - name: Register system to insights
       command: redhat-access-insights --register
