@@ -2,4 +2,4 @@
   hosts: all
   tasks:
     - name: Put system on new kernel
-      command: reboot
+      command: shutdown -r
