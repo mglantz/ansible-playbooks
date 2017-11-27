@@ -1,0 +1,7 @@
+- name: Patch system
+  hosts: all
+  tasks:
+    - name: Update system
+      command: yum -y update
+    - name: Reboot system
+      command: shutdown -r
