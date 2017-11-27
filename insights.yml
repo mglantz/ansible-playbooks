@@ -1,0 +1,10 @@
+
+- name: Red Hat Insights
+  hosts: all
+  tasks:
+    - name: Ensure insights is installed
+      yum:
+        name: redhat-access-insights
+        state: present
+    - name: Ensure tomcat service is enabled and started
+      command: redhat-access-insights --register
