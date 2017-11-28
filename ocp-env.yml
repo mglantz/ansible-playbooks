@@ -25,7 +25,10 @@
         - test
         - prod
         
-    - name: This is such a hack.
+    - name: Follow the appx-dev container build
+      command: oc logs -f appx-1-build -n appx-dev
+        
+    - name: Allow 10 seconds for pod to come online
       command: sleep 300
       
     - name: Create TEST tag
