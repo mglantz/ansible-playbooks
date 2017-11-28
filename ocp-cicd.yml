@@ -1,8 +1,7 @@
 - name: Create OCP resources for development team
   hosts: all
   vars:
-    git_repo: "https://github.com/jbrannst/appdev-foundations-kitchensink"
-    cicd_template: "https://raw.githubusercontent.com/jbrannst/openshift-cd-demo/ocp-3.5/cicd-template.yaml"
+    cicd_template: "https://raw.githubusercontent.com/mglantz/openshift-demos/master/source/blue-green/template.json"
     
   tasks:
     - name: Login to cluster
@@ -18,7 +17,7 @@
         - cicd
         
     - name: Create CI/CD environment
-      command: oc process -f {{ cicd_template }} -p TEST_PROJECT=test -p PROD_PROJECT=prod -p GIT_REPO={{ git_repo }} -n cicd | oc create -f - -n cicd
+      command: oc create -f {{ cicd_template }} -n cicd
       
     - name: Set limit for Jenkins
       command: oc set resources dc/jenkins --limits=memory=1Gi -n cicd
