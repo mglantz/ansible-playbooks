@@ -34,8 +34,8 @@
         - test
         - prod
         
-    - name: Sleep
-      command: sleep 60
+    - name: This is such a hack.
+      command: sleep 300
       
     - name: Create TEST tag
       command: oc tag appx:latest appx:TESTready -n appx-dev
@@ -43,4 +43,18 @@
     - name: Create PROD tag
       command: oc tag appx:latest appx:PRODready -n appx-dev
       
+    - name: Add access for Jenkins pod to projects
+      command: oc policy add-role-to-user edit system:serviceaccount:appx-dev:jenkins -n appx-{{ item }}
+      with_items:
+        - dev
+        - test
+        - prod
+    
+    - name: Deploy Jenkins with pipeline
+      command: oc create -f https://raw.githubusercontent.com/mglantz/ocp-jenkins/master/pipeline.yaml -n appx-dev
       
+    - name: Deploy app in test
+      command: oc new-app --name appx --image-stream=appx/TESTready --code=https://github.com/mglantz/ocp-jenkins.git -n appx-test
+      
+    - name: Deploy app in prod
+      command: oc new-app --name appx --image-stream=appx/PRODready --code=https://github.com/mglantz/ocp-jenkins.git -n appx-prod
