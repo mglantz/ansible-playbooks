@@ -11,7 +11,7 @@
           3963353963323933303134396635616564633062396532653632
   tasks:
     - name: Login to cluster
-      command: oc login --token={{ token }} {{ ocp_server }}
+      command: oc login --insecure-skip-tls-verify --token={{ token }} {{ ocp_server }}
       register: ocp_login
       
     - name: Create project
