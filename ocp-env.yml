@@ -29,7 +29,7 @@
       command: oc logs -f appx-1-build -n appx-dev
         
     - name: Allow 10 seconds for pod to come online
-      command: sleep 300
+      command: sleep 10
       
     - name: Create TEST tag
       command: oc tag appx:latest appx:TESTready -n appx-dev
