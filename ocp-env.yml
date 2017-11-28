@@ -20,7 +20,7 @@
       command: oc expose service appx -n appx-dev
       
     - name: Associate appx-dev service account to test and prod projects
-      command: oc policy add-role-to-group system:image-puller system:serviceaccounts:appx-{{ item }} -n appx-dev
+      command: oc policy add-role-to-group system:image-puller system:serviceaccounts:appx-{{ item }}:default -n appx-dev
       with_items:
         - test
         - prod
