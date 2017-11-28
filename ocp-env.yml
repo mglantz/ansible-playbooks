@@ -15,6 +15,9 @@
       register: ocp_login
       
     - name: Create project
-      command: oc new-project {{ ocp_project }}
+      command: oc new-project appx-{{ item }}
       when: "ocp_login.rc == 0"
-      
+      with_items:
+        - dev
+        - test
+        - prod
