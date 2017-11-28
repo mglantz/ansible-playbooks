@@ -21,3 +21,26 @@
         - dev
         - test
         - prod
+        
+    - name: Create app in appx-dev
+      command: oc new-app --name appx --image-stream=php:7.0 --code=https://github.com/mglantz/ocp-jenkins.git -n appx-dev
+      
+    - name: Expose service in appx-dev
+      command: oc expose service appx -n appx-dev
+      
+    - name: Associate appx-dev service account to test and prod projects
+      command: oc policy add-role-to-group system:image-puller system:serviceaccounts:appx-{{ item }} -n appx-dev
+      with_items:
+        - test
+        - prod
+        
+    - name: Sleep
+      command: sleep 60
+      
+    - name: Create TEST tag
+      command: oc tag appx:latest appx:TESTready -n appx-dev
+      
+    - name: Create PROD tag
+      command: oc tag appx:latest appx:PRODready -n appx-dev
+      
+      
