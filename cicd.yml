@@ -1,0 +1,51 @@
+- name: Create OCP resources for development team
+  hosts: all
+  vars:
+    git_repo: "https://github.com/jbrannst/appdev-foundations-kitchensink"
+    cicd_template: "https://raw.githubusercontent.com/jbrannst/openshift-cd-demo/ocp-3.5/cicd-template.yaml"
+    
+  tasks:
+    - name: Login to cluster
+      command: oc login --insecure-skip-tls-verify --token={{ token }} {{ ocp_server }}
+      register: ocp_login
+      
+    - name: Create projects
+      command: oc new-project {{ item }}
+      when: "ocp_login.rc == 0"
+      with_items:
+        - test
+        - prod
+        - cicd
+        
+    - name: Create CI/CD environment
+      command: oc process -f {{ cicd_template }} -p TEST_PROJECT=test -p PROD_PROJECT=prod -p GIT_REPO={{ git_repo }} | oc create -f - -n cicd
+      
+    - name: Set limit for Jenkins
+      command: oc set resources dc/jenkins --limits=memory=1Gi -n cicd
+      
+    - name: Add access to test and prod projects for Jenkins
+      command: oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n {{ item }}
+      with_items:
+        - test
+        - prod
+    
+    - name: Add view access to test and prod projects
+      command: oc policy add-role-to-user view system:serviceaccount:{{ item }}:default -n {{ item }}
+      with_items:
+        - test
+        - prod
+        
+    - name: Allow 10 seconds for build to start
+      command: sleep 10
+        
+    - name: Use oc logs -f to wait until build of Jenkins completes
+      command: oc logs -f dc/jenkins -n cicd
+      
+    - name: Use oc logs -f to wait until build of Gogs completes
+      command: oc logs -f install-gogs -n cicd
+        
+    - name: Allow 10 seconds for pod to come online
+      command: sleep 10
+      
+    - name: Run CI/CD pipeline
+      command: oc start-build -F cicd-pipeline -n cicd
