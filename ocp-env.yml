@@ -25,7 +25,10 @@
         - test
         - prod
         
-    - name: Follow the appx-dev container build
+    - name: Allow 10 seconds for build to start
+      command: sleep 10
+        
+    - name: Use oc logs -f to wait until build of app completes
       command: oc logs -f appx-1-build -n appx-dev
         
     - name: Allow 10 seconds for pod to come online
