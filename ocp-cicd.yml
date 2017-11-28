@@ -18,7 +18,7 @@
         - cicd
         
     - name: Create CI/CD environment
-      command: oc process -f {{ cicd_template }} -p TEST_PROJECT=test -p PROD_PROJECT=prod -p GIT_REPO={{ git_repo }} | oc create -f - -n cicd
+      command: oc process -f {{ cicd_template }} -p TEST_PROJECT=test -p PROD_PROJECT=prod -p GIT_REPO={{ git_repo }} -n cicd | oc create -f - -n cicd
       
     - name: Set limit for Jenkins
       command: oc set resources dc/jenkins --limits=memory=1Gi -n cicd
