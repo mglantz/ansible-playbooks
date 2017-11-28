@@ -49,3 +49,9 @@
       
     - name: Deploy app in prod
       command: oc new-app --name appx --image-stream=appx-dev/appx:PRODready -n appx-prod
+      
+    - name: Expose services in test and prod
+      command: oc expose service appx -n appx-{{ item }}
+      with_items:
+        - test
+        - prod
