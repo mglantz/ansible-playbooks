@@ -45,7 +45,7 @@
       command: oc create -f https://raw.githubusercontent.com/mglantz/ocp-jenkins/master/pipeline.yaml -n appx-dev
       
     - name: Deploy app in test
-      command: oc new-app --name appx --image-stream=appx/TESTready --code=https://github.com/mglantz/ocp-jenkins.git -n appx-test
+      command: oc new-app --name appx --image-stream=appx-dev/appx:TESTready -n appx-test
       
     - name: Deploy app in prod
-      command: oc new-app --name appx --image-stream=appx/PRODready --code=https://github.com/mglantz/ocp-jenkins.git -n appx-prod
+      command: oc new-app --name appx --image-stream=appx-dev/appx:PRODready -n appx-prod
