@@ -1,0 +1,6 @@
+- name: Patch OS playbook
+  hosts: all
+  tasks:
+    - name: Patching Red Hat Enterprise Linux
+      debug:
+        msg: "Patched ({{ server_name }})"
