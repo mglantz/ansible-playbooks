@@ -1,0 +1,6 @@
+- name: Patch APP playbook
+  hosts: all
+  tasks:
+    - name: Patching App
+      debug:
+        msg: "Patched ({{ server_name }})"
