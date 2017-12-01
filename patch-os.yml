@@ -3,4 +3,4 @@
   tasks:
     - name: Patching Red Hat Enterprise Linux
       debug:
-        msg: "Patched ({{ server_name }})"
+        msg: "Patched Red Hat Enterprise Linux {{ rhel_version }}"
