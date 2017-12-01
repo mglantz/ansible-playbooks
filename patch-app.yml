@@ -3,4 +3,4 @@
   tasks:
     - name: Patching App
       debug:
-        msg: "Patched ({{ server_name }})"
+        msg: "Patched App with setup {{ app_config }}"
