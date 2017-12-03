@@ -1,0 +1,6 @@
+- name: Patch APP XYZ playbook
+  hosts: all
+  tasks:
+    - name: Patch App XYZ
+      debug:
+        msg: "Patched App XYZ"
