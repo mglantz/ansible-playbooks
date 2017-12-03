@@ -1,0 +1,6 @@
+- name: Switch loadbalancer to GREEN side
+  hosts: all
+  tasks:
+    - name: Re-configure loadbalancer to send traffic to GREEN side
+      debug:
+        msg: "GREEN side now active"
