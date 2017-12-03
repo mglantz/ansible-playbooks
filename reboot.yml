@@ -1,0 +1,10 @@
+- name: Reboot system
+  hosts: all
+  tasks:
+    - name: Reboot system
+      command: reboot
+    - name: Wait for system to become reachable after reboot
+      local_action: 
+        wait_for host={{ ansible_ssh_host }} state=started
+
+

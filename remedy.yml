@@ -1,5 +1,0 @@
-- name: Remedy kernel issue
-  hosts: all
-  tasks:
-    - name: Put system on new kernel
-      command: shutdown -r
