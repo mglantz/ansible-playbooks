@@ -3,4 +3,4 @@
   tasks:
     - name: Patching Red Hat Enterprise Linux
       debug:
-        msg: "Patched Red Hat Enterprise Linux {{ rhel_version }}"
+        msg: "Patched Red Hat Enterprise Linux. Now at: {{ ansible_distribution_version }}"
