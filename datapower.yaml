@@ -1,0 +1,6 @@
+- name: Backup datapower
+  hosts: all
+  tasks:
+    - name: Run backup command
+      command: ls
+      
