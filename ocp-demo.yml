@@ -1,0 +1,27 @@
+- name: Deploy application and environments to cluster
+  hosts: all
+      
+  tasks:
+    - name: Login to cluster
+      command: oc login --insecure-skip-tls-verify --token={{ token }} {{ ocp_server }}
+      register: ocp_login
+      
+    - name: Create projects
+      command: oc new-project {{ item }}
+      when: "ocp_login.rc == 0"
+      with_items:
+        - dev
+        - test
+        - prod
+        
+    - name: Deploy application
+      command: oc new-app --name appx --image-stream=php:7.0 --code=https://github.com/mglantz/ocp-jenkins.git -n dev
+      
+    - name: Expose route for application
+      command: oc expose service appx -n dev
+      
+    - name: Add access to pull images from development project
+      command: oc policy add-role-to-group system:image-puller system:serviceaccounts:{{ item }}:default -n dev
+      with_items:
+        - test
+        - prod
