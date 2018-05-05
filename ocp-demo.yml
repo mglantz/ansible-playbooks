@@ -10,18 +10,18 @@
       command: oc new-project {{ item }}
       when: "ocp_login.rc == 0"
       with_items:
-        - dev
-        - test
-        - prod
+        - dev-one
+        - test-one
+        - prod-one
         
     - name: Deploy application
-      command: oc new-app --name appx --image-stream=php:7.0 --code=https://github.com/mglantz/ocp-jenkins.git -n dev
+      command: oc new-app --name appx --image-stream=php:7.0 --code=https://github.com/mglantz/ocp-jenkins.git -n dev-one
       
     - name: Expose route for application
-      command: oc expose service appx -n dev
+      command: oc expose service appx -n dev-one
       
     - name: Add access to pull images from development project
-      command: oc policy add-role-to-group system:image-puller system:serviceaccounts:{{ item }}:default -n dev
+      command: oc policy add-role-to-group system:image-puller system:serviceaccounts:{{ item }}:default -n dev-one
       with_items:
-        - test
-        - prod
+        - test-one
+        - prod-one
