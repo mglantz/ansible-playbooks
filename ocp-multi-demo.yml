@@ -1,0 +1,51 @@
+- name: Deploy application and environments to two clusters
+  hosts: all
+      
+  tasks:
+    - name: Login to cluster one
+      command: oc login --insecure-skip-tls-verify --token={{ tokenone }} {{ ocp_serverone }}
+      register: ocp_login
+      
+    - name: Create projects in cluster one
+      command: oc new-project {{ item }}
+      when: "ocp_login.rc == 0"
+      with_items:
+        - dev-duo
+        - test-duo
+        - prod-duo
+        
+    - name: Deploy application in cluster one
+      command: oc new-app --name appx-duo --image-stream=php:7.0 --code=https://github.com/mglantz/ocp-jenkins.git -n dev-duo
+      
+    - name: Expose route for application
+      command: oc expose service appx-duo -n dev-duo
+      
+    - name: Add access to pull images from development project
+      command: oc policy add-role-to-group system:image-puller system:serviceaccounts:{{ item }}:default -n dev-duo
+      with_items:
+        - test-duo
+        - prod-duo
+        
+    - name: Login to cluster two
+      command: oc login --insecure-skip-tls-verify --token={{ tokentwo }} {{ ocp_servertwo }}
+      register: ocp_login
+      
+    - name: Create projects in cluster two
+      command: oc new-project {{ item }}
+      when: "ocp_login.rc == 0"
+      with_items:
+        - dev-duo
+        - test-duo
+        - prod-duo
+        
+    - name: Deploy application in cluster two
+      command: oc new-app --name appx-duo --image-stream=php:7.0 --code=https://github.com/mglantz/ocp-jenkins.git -n dev-duo
+      
+    - name: Expose route for application
+      command: oc expose service appx-duo -n dev-duo
+      
+    - name: Add access to pull images from development project
+      command: oc policy add-role-to-group system:image-puller system:serviceaccounts:{{ item }}:default -n dev-duo
+      with_items:
+        - test-duo
+        - prod-duo
