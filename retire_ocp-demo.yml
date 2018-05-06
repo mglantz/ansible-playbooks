@@ -1,0 +1,15 @@
+- name: Delete projects and deployments
+  hosts: all
+      
+  tasks:
+    - name: Login to cluster
+      command: oc login --insecure-skip-tls-verify --token={{ token }} {{ ocp_server }}
+      register: ocp_login
+      
+    - name: Delete projects
+      command: oc delete project {{ item }}
+      when: "ocp_login.rc == 0"
+      with_items:
+        - dev-one
+        - test-one
+        - prod-one
