@@ -1,8 +1,8 @@
-- name: Deploy application and environments to cluster
+- name: Deploy application to different clusters dependending on utilization
   hosts: all
       
   tasks:
-    - name: Login to cluster
+    - name: Login to AWS cluster
       command: oc login --insecure-skip-tls-verify --token={{ tokenone }} {{ ocp_serverone }}
       register: ocp_login
       
@@ -14,7 +14,7 @@
       command: oc scale dc/appx-scale --replicas=3 -n appx-scale
       when: "ocp_replicas.rc == 0"
       
-    - name: Deploy application to cluster two if we do not have capacity
+    - name: Deploy application to Azure cluster if we do not have capacity
       command: oc login --insecure-skip-tls-verify --token={{ tokentwo }} {{ ocp_servertwo }}
       when: "ocp_replicas.rc == 0"
       
