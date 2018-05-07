@@ -1,0 +1,27 @@
+- name: Deploy application and environments to cluster
+  hosts: all
+      
+  tasks:
+    - name: Login to cluster
+      command: oc login --insecure-skip-tls-verify --token={{ tokenone }} {{ ocp_serverone }}
+      register: ocp_login
+      
+    - name: Fetch replicas
+      command: oc describe dc appx-scale -n appx-scale|grep 'Pods Status'|awk '{ print $3 }'|grep -s 1
+      register: ocp_replicas
+        
+    - name: Scale out application in case we have capacity
+      command: oc scale dc/appx-scale --replicas=3 -n appx-scale
+      when: "ocp_replicas.rc == 0"
+      
+    - name: Deploy application to cluster two if we do not have capacity
+      command: oc login --insecure-skip-tls-verify --token={{ tokentwo }} {{ ocp_servertwo }}
+      when: "ocp_replicas.rc == 0"
+      
+    - name: Add access to pull images from development project
+      command: oc new-project appx-scale
+      when: "ocp_replicas.rc == 0"
+
+    - name: Deploy app to new cluster
+      command: oc new-app --name appx-scale --image-stream=php:7.0 --code=https://github.com/mglantz/ocp-jenkins.git -n appx-scale
+      when: "ocp_replicas.rc == 0"
