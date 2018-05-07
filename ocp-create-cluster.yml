@@ -2,4 +2,4 @@
   hosts: all
   tasks:
     - name: Install OpenShift Container Platform 3.9 on Azure
-      command: ~/ocp39-azure-simple/deploy.sh demo
+      command: ~/ocp39-azure-simple/deploy.sh ocp39sd
