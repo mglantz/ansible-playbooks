@@ -1,5 +1,5 @@
-- name: Create OpenShift 3.6 cluster
+- name: Create OpenShift 3.9 cluster
   hosts: all
   tasks:
     - name: Install OpenShift Container Platform 3.6 on Azure
-      command: ~/ocp36-azure-simple/deploy.sh {{ openshift_cluster_name }}
+      command: ~/ocp39-azure-simple/deploy.sh demo
