@@ -1,7 +1,8 @@
 - name: Check if web front end answers
   hosts: all
   tasks:
-  - uri:
+  - name: Connect to web front end and get content of first page 
+    uri:
       url: "http://{{ ansible_hostname }}"
       return_content: yes
     register: webpage
