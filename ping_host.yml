@@ -1,0 +1,7 @@
+- name: Ping arbitrary destination from a server
+  hosts: all
+  tasks:
+  - name: Ping net1
+    command: "ping -c 5 {{ ping_target }}"
+    delegate_to: {{ ansible_hostname }}
+    changed_when: false
