@@ -5,8 +5,10 @@
       yum:
         name: '*'
         state: latest
+      become: yes
     - name: Reboot system the system
       command: /sbin/shutdown -r +1
       async: 0
       poll: 0
       ignore_errors: true
+      become: yes
