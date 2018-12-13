@@ -1,0 +1,10 @@
+- name: Check if web front end answers
+  hosts: all
+  tasks:
+  - uri:
+      url: "http://{{ ansible_hostname }}"
+      return_content: yes
+    register: webpage
+  - name: Fail if hello world is not in the web page content
+    fail:
+    when: "'hello world' not in webpage.content"
