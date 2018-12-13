@@ -6,9 +6,13 @@
         name: '*'
         state: latest
       become: yes
-    - name: Reboot system the system
-      command: /sbin/shutdown -r +1
-      async: 0
-      poll: 0
-      ignore_errors: true
-      become: yes
+      register: patched
+    - name: Reboot the system when software has been updated
+      reboot:
+      when: rebooting|changed
+    - name: Wait for server to reboot
+      wait_for:
+        port: 22
+        search_regex: OpenSSH
+      vars:
+        ansible_connection: local
