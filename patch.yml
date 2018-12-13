@@ -10,7 +10,7 @@
     - name: Reboot the system when software has been updated
       reboot:
       when: patched is changed
-    - name: Wait for server to reboot
+    - name: Check so that server is online
       wait_for:
         port: 22
         search_regex: OpenSSH
