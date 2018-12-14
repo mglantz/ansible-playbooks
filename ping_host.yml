@@ -1,7 +1,7 @@
-- name: Ping arbitrary destination from a server
+- name: Ping arbitrary destination from server
   hosts: all
   tasks:
-  - name: "Ping {{ ansible_hostname }}"
+  - name: "Ping {{ ping_target }} from {{ ansible_hostname }}"
     command: "ping -c 5 {{ ping_target }}"
     delegate_to: "{{ ansible_hostname }}"
     changed_when: false
