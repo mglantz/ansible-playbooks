@@ -9,3 +9,4 @@
   - name: Print output from ping
     debug:
       msg: "{{ ping.stdout }}"
+    verbosity: 3
