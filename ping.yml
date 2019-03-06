@@ -1,0 +1,7 @@
+---
+- name: Ping all servers
+  hosts: all
+  tasks:
+  - name: Ping a server using the ping module
+    ping:
+      data: pong from Ansible
