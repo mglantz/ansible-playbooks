@@ -7,7 +7,7 @@
         
     - name: "Ping web proxy {{ ping_target }} from server"
       command: "ping -c 5 {{ ping_target }}"
-      delegate_to: "{{ ansible_hostname }}"
+      delegate_to: "{{ ansible_host }}"
       changed_when: false
       register: ping
       
