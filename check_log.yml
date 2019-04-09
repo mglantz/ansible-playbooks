@@ -1,0 +1,13 @@
+- name: Check log files for error messages
+  hosts: all
+  tasks:
+    - name: Retriev /var/log/messages file
+      command: cat /var/log/messages
+      register: messagelog
+      become: yes
+      
+    - name: Check /var/log/messages for error messages
+      when: messagelog.stdout.find('error') != -1
+      debug:
+        msg: "Found errors in /var/log/messages"
+        
