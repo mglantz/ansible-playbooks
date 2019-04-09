@@ -5,6 +5,17 @@
       ping:
         data: pong
         
+    - name: "Ping web proxy {{ ping_target }} from server"
+      command: "ping -c 5 {{ ping_target }}"
+      delegate_to: "{{ ansible_hostname }}"
+      changed_when: false
+      register: ping
+      
+    - name: Print output from ping
+      debug:
+        msg: "{{ ping.stdout }}"
+        verbosity: 2
+        
     - name: Fetch last logged in users
       shell: last
       register: last_users
