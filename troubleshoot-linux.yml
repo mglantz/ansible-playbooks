@@ -1,0 +1,24 @@
+- name: Troubleshoot a Linux server
+  hosts: all
+  tasks:
+    - name: Ping server
+      ping:
+        data: pong
+        
+    - name: Fetch last logged in users
+      shell: last
+      register: last_users
+      
+    - name: Print last logged in users
+      debug:
+        msg: "Last logged in users are: {{ last_users.stdout }}"
+  
+    - name: Gather information about application crashes
+      shell: abrt-cli list|wc -l
+      register: crashes_detected
+      become: yes
+      
+    - name: Detect application crashes (will get skipped if it's OK)
+      when: crashes_detected.stdout.find('0') != -1
+      debug:
+        msg: "This system has applications which have crashed recently."
