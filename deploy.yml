@@ -1,6 +1,6 @@
-- name: Project B CICD deploy
+- name: Project C CICD deploy
   hosts: all
   tasks:
-    - name: Project B deploy task
+    - name: Project C deploy task
       debug:
-        msg: "Project B deployment task"
+        msg: "Project C deployment task"
