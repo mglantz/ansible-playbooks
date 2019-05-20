@@ -1,4 +1,4 @@
-- name: Patch Red Hat Enterprise Linux system
+- name: Patch Red Hat Enterprise Linux system and reboot if needed
   hosts: all
   tasks:
     - name: Update all RPM packages
