@@ -1,5 +1,5 @@
 ---
-- name: Ping all servers
+- name: Ping servers
   hosts: all
   tasks:
   - name: Ping a server using the ping module
