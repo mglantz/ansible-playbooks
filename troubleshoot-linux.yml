@@ -5,18 +5,19 @@
       ping:
         data: pong
 
-    - name: Fetch last logged in users
-      shell: last
-      register: last_users
+    - name: Gather login information
+      shell: last|grep -v wtmp|grep -v reboot|grep ec2-user|grep "$(date +"%a %b %d")"
+      register: login_detect
+
+    - name:  Detect if someone logged in to the system today (will get skipped if NOT)
+      when: login_detect.stdout.find('0') != -1
+      debug:
+        msg: "This system has had someone logging in today."
       
     - name: Print last logged in users
+      when: login_detect.stdout.find('0') != -1
       debug:
-        msg: "Last logged in users are: {{ last_users.stdout }}"
-  
-    - name: Ensure abrt is installed
-      yum:
-        name: abrt-cli
-        state: present
+        msg: "Last logged in users are: {{ login_detect.stdout }}"
   
     - name: Gather information about application crashes
       shell: abrt-cli status
@@ -26,4 +27,4 @@
     - name: Detect application crashes (will get skipped if it's OK)
       when: crashes_detected.stdout.find('0') != -1
       debug:
-        msg: "This system has applications which have crashed recently."
+        msg: "Detected {{ crashes_detected }} recent application crashes"
