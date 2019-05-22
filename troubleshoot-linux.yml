@@ -6,7 +6,7 @@
         data: pong
 
     - name: Gather login information
-      shell: last|grep -v wtmp|grep -v reboot|grep theuser|grep "$(date +"%a %b %d")"
+      shell: last|grep -v wtmp|grep -v reboot|grep ec2-user|grep "$(date +"%a %b %d")"
       register: login_detect
 
     - name: Detect if someone logged in to the system today (will get skipped if NOT)
