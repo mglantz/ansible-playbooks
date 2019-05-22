@@ -1,7 +1,7 @@
 - name: Troubleshoot a Linux server
   hosts: all
   tasks:  
-    - name: Ping server
+    - name: Login to system and get basic response
       ping:
         data: pong
 
