@@ -31,7 +31,7 @@
     - name: Set CPU usage facts
       set_fact:
         user_cpu: "{{top.stdout_lines[2].split()[1]}}"
-	system_cpu: "{{top.stdout_lines[2].split()[3]}}"
+        system_cpu: "{{top.stdout_lines[2].split()[3]}}"
 
     - name: Output CPU usage facts
       debug:
