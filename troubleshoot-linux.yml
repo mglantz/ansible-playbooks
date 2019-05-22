@@ -9,15 +9,10 @@
       shell: last|grep -v wtmp|grep -v reboot|grep theuser|grep "$(date +"%a %b %d")"
       register: login_detect
 
-    - name:  Detect if someone logged in to the system today (will get skipped if NOT)
+    - name: Detect if someone logged in to the system today (will get skipped if NOT)
       when: login_detect.stdout.find('0') != -1
       debug:
-        msg: "This system has had someone logging in today."
-      
-    - name: Print last logged in users
-      when: login_detect.stdout.find('0') != -1
-      debug:
-        msg: "Last logged in users are: {{ login_detect.stdout }}"
+        msg: "Detected login: {{ login_detect.stdout }}"
   
     - name: Gather information about application crashes
       shell: abrt-cli status
@@ -28,3 +23,18 @@
       when: crashes_detected.stdout.find('0') != -1
       debug:
         msg: "Detected {{ crashes_detected }} recent application crashes"
+        
+	  - name: Get CPU usage
+	    shell: "top -b -n 1"
+	    register: top
+ 
+	  - name: Set CPU usage facts
+	    set_fact:
+			  user_cpu: "{{top.stdout_lines[2].split()[1]}}"
+			  system_cpu: "{{top.stdout_lines[2].split()[3]}}"
+ 
+	  - name: Output CPU usage facts
+	    debug:
+			  msg:
+			    - "User CPU usage: {{user_cpu}}"
+			    - "System CPU usage: {{system_cpu}}"
