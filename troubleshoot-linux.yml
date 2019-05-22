@@ -6,7 +6,7 @@
         data: pong
 
     - name: Gather login information
-      shell: last|grep -v wtmp|grep -v reboot|grep ec2-user|grep "$(date +"%a %b %d")"
+      shell: for item in $(grep bash /etc/passwd|cut -d: -f1); do last|grep -v wtmp|grep -v reboot|grep $user|grep "$(date +"%a %b %d")"; done
       register: login_detect
       ignore_errors: yes
 
