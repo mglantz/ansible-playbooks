@@ -1,6 +1,6 @@
 - name: Troubleshoot a Linux server
   hosts: all
-  tasks:
+  tasks:  
     - name: Ping server
       ping:
         data: pong
@@ -12,6 +12,11 @@
     - name: Print last logged in users
       debug:
         msg: "Last logged in users are: {{ last_users.stdout }}"
+  
+    - name: Ensure abrt is installed
+      yum:
+        name: abrt-cli
+        state: present
   
     - name: Gather information about application crashes
       shell: abrt-cli list|wc -l
