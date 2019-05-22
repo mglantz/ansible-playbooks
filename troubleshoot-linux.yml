@@ -46,4 +46,4 @@
     
     - name: Memory utilization check
       debug:
-        msg: "Total memory: {{ ansible_memtotal_mb }}. Current swapping: {{ swap_util.stdout }} mb."
+        msg: "Total memory installed on system: {{ ansible_memtotal_mb }} mb. Current swapping: {{ swap_util.stdout }} mb."
