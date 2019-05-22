@@ -19,7 +19,7 @@
         state: present
   
     - name: Gather information about application crashes
-      shell: abrt-cli list|wc -l
+      shell: abrt-cli status
       register: crashes_detected
       become: yes
       
