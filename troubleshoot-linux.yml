@@ -4,6 +4,11 @@
     - name: Login to system and get basic response
       ping:
         data: pong
+    
+    - name: Install tool to detect crashes on a system
+      yum:
+        name: abrt-cli
+        state: present
 
     - name: Gather login information
       shell: last|grep -v wtmp|grep -v reboot|grep ec2-user|grep "$(date +"%a %b %d")"
