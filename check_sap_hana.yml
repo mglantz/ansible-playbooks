@@ -1,0 +1,5 @@
+- name: Check SAP Hana backup
+  hosts: all
+  tasks:
+    - name: Check backup
+      command: 'hdbbbackupcheck -v {{ backup_path }}'
