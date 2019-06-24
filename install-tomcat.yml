@@ -1,4 +1,4 @@
-- name: Install Tomcat Application server
+- name: Install the Tomcat Application server
   hosts: all
   tasks:
     - name: Ensure tomcat is installed
