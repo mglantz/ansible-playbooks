@@ -1,5 +1,5 @@
 ---
-- name: Ping servers
+- name: Check if servers are alive
   hosts: all
   tasks:
   - name: Ping a server using the ping module
