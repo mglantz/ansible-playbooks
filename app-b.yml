@@ -1,7 +1,7 @@
 
-- name: App B v.2 playbook
+- name: App B v.3 playbook
   hosts: all
   tasks:
-    - name: Install App B v.2
+    - name: Install App B v.3
       debug:
-        msg: "Installed App B v.2 - PROD version"
+        msg: "Installed App B v.3 - PROD version"
