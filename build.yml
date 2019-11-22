@@ -1,4 +1,4 @@
-- name: Project B CICD build
+- name: Project B CICD builds
   hosts: all
   tasks:
     - name: Project B build task
