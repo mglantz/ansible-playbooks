@@ -1,0 +1,76 @@
+- name: Demo of doing arbitrary network troubleshooting 
+  hosts: all
+  vars:
+    interface: enp1s0
+
+  tasks:
+    - name: Collecting information
+      debug:
+        msg: 
+
+    - name: Get MTU size on non loopback interface
+      shell: "netstat -i|grep {{ interface }}|awk '{ print $2 }'"
+      register: mtu_size
+
+    - name: Get failed connection attempts
+      shell: "netstat -s|grep 'failed connection attempts'|awk '{ print $1}'"
+      register: netstat_failed_conn
+
+    - name: Get RX errors
+      shell: "netstat -i|grep {{ interface }}|awk '{ print $4 }'"
+      register: rx_err
+
+    - name: Get RX drops
+      shell: "netstat -i|grep {{ interface }}|awk '{ print $5 }'"
+      register: rx_drp
+
+    - name: Get TX errors
+      shell: "netstat -i|grep {{ interface }}|awk '{ print $8 }'"
+      register: tx_err
+
+    - name: Get TX drops
+      shell: "netstat -i|grep {{ interface }}|awk '{ print $9 }'"
+      register: tx_drp
+
+    - name: Get system IO wait
+      shell: "iostat|grep iowait -a1|grep [0-9]|awk '{ print $4 }'"
+      register: iowait
+
+    - name: Performing analysis
+      debug:
+        msg: "##############################################################"
+
+    - name: Print MTU size of non loopback interface if it is NOT 1500
+      debug:
+        msg: "{{ interface }} has MTU size: {{ mtu_size.stdout }}"
+      when: mtu_size.stdout is version('1500', '!=')
+
+    - name: Print any TX errors found on {{ interface }}
+      debug:
+        msg: "{{ interface }} has {{ tx_err.stdout }} TX errors."
+      when: tx_err.stdout is version('0', '!=')
+
+    - name: Print any TX drops found on {{ interface }}
+      debug:
+        msg: "{{ interface }} has {{ tx_drp.stdout }} TX drops."
+      when: tx_drp.stdout is version('0', '!=')
+
+    - name: Print any RX errors found on {{ interface }}
+      debug:
+        msg: "{{ interface }} has {{ rx_err.stdout }} RX errors."
+      when: rx_err.stdout is version('0', '!=')
+
+    - name: Print any RX drops found on {{ interface }}
+      debug:
+        msg: "{{ interface }} has {{ rx_drp.stdout }} TX drops."
+      when: rx_drp.stdout is version('0', '!=')
+
+    - name: Print any failed TCP connection attempts from system to world
+      debug:
+        msg: "Number of failed connection attempts: {{ netstat_failed_conn.stdout }}"
+      when: netstat_failed_conn.stdout is version('0', '!=')
+
+    - name: Print system I/O wait over 5% of total system time.
+      debug:
+        msg: "% of time CPU spends waiting for IO operations to come back from network is {{ iowait.stdout }}%"
+      when: iowait.stdout is version('5.0', '>')
