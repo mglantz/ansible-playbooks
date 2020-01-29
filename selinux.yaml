@@ -1,0 +1,8 @@
+- name: Activate Mandatory Access System (MAC) SELinux on server
+  hosts: all
+
+  tasks:
+    - name: Set SELinux to enforcing and targeted policy
+      selinux:
+        policy: targeted
+        state: enforcing
