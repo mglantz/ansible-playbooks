@@ -1,4 +1,4 @@
-- name: Install the Apache web server and ensure it's running
+- name: Install the apache web server and ensure it's running
   hosts: all
   tasks:
     - name: Install Apache web server
