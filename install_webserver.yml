@@ -12,3 +12,8 @@
         state: started
         enabled: yes
         
+     - name: Enable firewall rule for web server
+       firewalld:
+         service: https
+         permanent: yes
+         state: enabled
