@@ -1,0 +1,14 @@
+- name: Install the Apache web server and ensure it's running
+  hosts: all
+  tasks:
+    - name: Install Apache web server
+      yum:
+        name: httpd
+        state: installed
+        
+    - name:  Ensure Apache web server is running
+      service:
+        name: httpd
+        state: running
+        enabled: yes
+        
