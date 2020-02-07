@@ -12,9 +12,17 @@
         state: started
         enabled: yes
         
-    - name: Enable firewall rule for web server
+    - name: Enable http firewall rule for web server
       firewalld:
         zone: public
         service: http
         permanent: yes
         state: enabled
+        
+    - name: Enable https firewall rule for web server
+      firewalld:
+        zone: public
+        service: https
+        permanent: yes
+        state: enabled
+        
