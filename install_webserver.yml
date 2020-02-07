@@ -17,12 +17,12 @@
         zone: public
         service: http
         permanent: yes
-        state: enabled
+        state: present
         
     - name: Enable https firewall rule for web server
       firewalld:
         zone: public
         service: https
         permanent: yes
-        state: enabled
+        state: present
         
