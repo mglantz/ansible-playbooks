@@ -9,6 +9,6 @@
     - name:  Ensure Apache web server is running
       service:
         name: httpd
-        state: running
+        state: started
         enabled: yes
         
