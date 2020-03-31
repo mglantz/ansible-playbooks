@@ -1,5 +1,5 @@
 
-- name: Red Hat Insights
+- name: Install and register Red Hat Insight on a server
   hosts: all
   tasks:
     - name: Ensure insights is installed
