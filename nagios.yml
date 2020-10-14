@@ -33,7 +33,7 @@
         replace: 'use_ssl_authentication=1'
       register: nagios_set_ssl
 
-    - name: Restart Nagios we made a config change for SSL
+    - name: Restart Nagios if we made a config change for SSL
       service:
         name: nagios
         state: restarted
