@@ -1,4 +1,4 @@
-- name: Install Nagios 4.4.5 on Red Hat Enterprise Linux 8.2
+- name: Install Nagios on Red Hat Enterprise Linux 8.2
   hosts: all
   tasks:
     - name: Import the EPEL cryptographic signature
@@ -13,7 +13,7 @@
 
     - name: Install Nagios server
       yum:
-        name: mod_ssl, git, httpd, mariadb-server, php-mysqlnd, php-fpm, nagios, nagios-selinux, nagios-common, nagios-plugins, lsof, gcc, glibc, glibc-common, wget, gd, gd-devel, perl, postfix
+        name: dnf-plugins-core, mod_ssl, git, httpd, mariadb-server, php-mysqlnd, php-fpm, nagios, nagios-selinux, nagios-common, nagios-plugins, lsof, gcc, glibc, glibc-common, wget, gd, gd-devel, perl, postfix
         state: present
 
     - name: Start and enable Nagios services
@@ -26,15 +26,22 @@
         - mariadb
         - nagios
 
-    - name: Make Nagios use SSL
+    - name: Configure Nagios server to use SSL
       replace:
         path: /etc/nagios/cgi.cfg
         regexp: 'use_ssl_authentication=0'
         replace: 'use_ssl_authentication=1'
       register: nagios_set_ssl
 
-    - name: Restart Nagios if we made a config change for SSL
+    - name: Configure Nagios to disable auth DEMO ONLY
+      replace:
+        path: /etc/nagios/cgi.cfg
+        regexp: 'use_authentication=1'
+        replace: 'use_authentication=0'
+      register: nagios_use_auth
+
+    - name: Restart Nagios if config done
       service:
         name: nagios
         state: restarted
-      when: nagios_set_ssl.changed
+      when: nagios_set_ssl.changed or nagios_use_auth.changed
