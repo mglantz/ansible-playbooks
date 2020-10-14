@@ -11,9 +11,17 @@
         name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
         state: present
 
+    - name: Enable CentOS 8 PowerTools repo needed for some perl tools
+      yum_repository:
+        name: PowerTools
+        description: CentOS 8 PowerTools
+        mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=PowerTools&infra=$infra
+        enabled: yes
+        gpgcheck: no
+
     - name: Install Nagios server
       yum:
-        name: dnf-plugins-core, mod_ssl, git, httpd, mariadb-server, php-mysqlnd, php-fpm, nagios, nagios-selinux, nagios-common, nagios-plugins, lsof, gcc, glibc, glibc-common, wget, gd, gd-devel, perl, postfix
+        name: jq, dnf-plugins-core, mod_ssl, git, httpd, mariadb-server, php-mysqlnd, php-fpm, nagios, nagios-selinux, nagios-common, nagios-plugins, lsof, gcc, glibc, glibc-common, wget, gd, gd-devel, perl, postfix
         state: present
 
     - name: Start and enable Nagios services
