@@ -1,0 +1,58 @@
+- name: Install NRPE, plugins and check_insights on Red Hat Enterprise Linux 8.2
+  hosts: all
+  vars:
+    nagios_server: nagios.sudo.net
+  tasks:
+    - name: Import the EPEL cryptographic signature
+      rpm_key:
+        key: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
+        state: present
+
+    - name: Ensure the EPEL repo is enabled
+      yum:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+        state: present
+
+    - name: Enable CentOS 8 PowerTools repo needed to install all Nagios plugins
+      yum_repository:
+        name: PowerTools
+        description: CentOS 8 PowerTools
+        mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=PowerTools&infra=$infra
+        enabled: yes
+        gpgcheck: no
+
+    - name: Install NRPE client and Nagios plugins
+      yum:
+        name: nrpe, nagios-plugins-*
+        state: present
+
+    - name: Fetch check_insights.py and put into plugin directory
+      get_url:
+        url: https://raw.githubusercontent.com/mglantz/check_insights/main/check_insights.py
+        dest: /usr/lib64/nagios/plugins/check_insights.py
+        mode: 0755
+
+    - name: Configure NRPE to allow Nagios server can connect
+      replace:
+        path: /etc/nagios/nrpe.cfg
+        regexp: 'allowed_hosts=127.0.0.1,::1'
+        replace: >-
+          allowed_hosts=127.0.0.1,::1,{{ nagios_server }}
+
+    - name: Create NRPE sudo config for check_insights
+      copy:
+        dest: "/etc/sudoers.d/nrpe"
+        content: |
+          Defaults:nrpe !requiretty
+          nrpe          ALL=(ALL) NOPASSWD: /usr/lib64/nagios/plugins/check_insights.py --mon true
+
+    - name: Configure NRPE with check_insights command
+      lineinfile:
+        path: /etc/nagios/nrpe.cfg
+        line: 'command[check_insights]=sudo /usr/lib64/nagios/plugins/check_insights.py --mon true'
+
+    - name: Start and enable NRPE service
+      service:
+        name: "nrpe"
+        state: restarted
+        enabled: yes
