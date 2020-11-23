@@ -38,7 +38,7 @@
 
     - name: Performing analysis
       debug:
-        msg: "##############################################################"
+        msg: "###########################################################"
 
     - name: Print MTU size of non loopback interface if it is NOT 1500
       debug:
