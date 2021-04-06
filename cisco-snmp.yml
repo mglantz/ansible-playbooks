@@ -8,4 +8,5 @@
       ios_config:
         commands:
           - snmp-server community ansible-public RO
+          - snmp-server community other-stuff RO
           - snmp-server community ansible-private RW
