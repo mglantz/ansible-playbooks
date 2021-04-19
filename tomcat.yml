@@ -1,11 +1,11 @@
-- name: Install the Tomcat Application server to a server
+- name: Install Tomcat, a java application server
   hosts: all
   tasks:
     - name: Ensure tomcat is installed
       yum:
         name: tomcat
         state: present
-    - name: Ensure tomcat service is enabled and started
+    - name: Ensure the tomcat service is enabled and started
       service:
         name: tomcat
         enabled: yes
