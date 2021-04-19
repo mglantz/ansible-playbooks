@@ -11,6 +11,6 @@
         name: httpd
         enabled: yes
         state: started
-    - name: Check so that web server is alive
+    - name: Check so that we can reach the web server
       uri:
         url: http://localhost
