@@ -11,7 +11,3 @@
         name: httpd
         enabled: yes
         state: started
-    - name: Check so that we can reach the web server
-      uri:
-        url: http://rhel81c.sudo.net
-        status_code: 200
