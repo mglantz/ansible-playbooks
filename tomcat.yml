@@ -1,7 +1,7 @@
 - name: Install Tomcat, a java application server
   hosts: all
   tasks:
-    - name: Ensure tomcat is installed
+    - name: Ensure the tomcat software is installed
       yum:
         name: tomcat
         state: present
