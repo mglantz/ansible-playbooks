@@ -13,4 +13,5 @@
         state: started
     - name: Check so that we can reach the web server
       uri:
-        url: http://localhost
+        url: http://rhel81c.sudo.net
+        status_code: 200
