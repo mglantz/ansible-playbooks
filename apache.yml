@@ -2,7 +2,7 @@
 - name: Install Apache, a web server
   hosts: all
   tasks:
-    - name: Ensure the tomcat software is installed
+    - name: Ensure the httpd software is installed
       yum:
         name: httpd
         state: present
