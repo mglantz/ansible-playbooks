@@ -1,9 +1,9 @@
-- name: Run prerequisite checks for patching a system
+- name: Reboot system
   hosts: all
   gather_facts: no
   become: yes
   tasks:
-    - name: Reboot system and wait for 3600 seconds
+    - name: Reboot system and wait 3600 seconds for it to come up
       reboot:
         reboot_timeout: 3600
         test_command: uptime
