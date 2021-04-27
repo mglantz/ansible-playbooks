@@ -1,0 +1,8 @@
+
+- name: Ensure that Apache web server is not running
+  hosts: all
+  tasks:
+    - name: Ensure the httpd service is stopped
+      service:
+        name: httpd
+        state: stopped
