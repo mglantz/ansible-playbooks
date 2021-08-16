@@ -1,0 +1,8 @@
+
+---
+- name: Wait for days
+  hosts: all
+  tasks:
+  - name: Wait for three days
+    wait_for:
+      timeout: 259200
