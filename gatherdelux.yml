@@ -1,0 +1,18 @@
+---
+- name: Testing gathering
+  hosts: all
+  gather_facts: yes
+  pre_tasks:
+    - name: Gather facts from ALL hosts (regardless of limit or tags)
+      setup:
+      delegate_to: "{{ item }}"
+      delegate_facts: True
+      with_items: "{{ groups['all'] }}"
+  tasks:
+    - name: facts
+      setup:
+        gather_subset:
+          - all
+    - name: test
+      debug:
+        msg: "hello world"
