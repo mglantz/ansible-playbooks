@@ -1,0 +1,8 @@
+- name: Gather facts from systems using a task
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Gather facts
+      ansible.builtin.setup:
+        gather_subset:
+          - all
