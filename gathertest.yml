@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: no
+  become_user: root
+  become_method: 'sudo'
+  become_flags: 'su - root /bin/bash -c'
+  gather_facts: yes
+  gather_timeout: 20
+  
+  tasks:
+  - name: "ping"
+    ansible.builtin.ping:
