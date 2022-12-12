@@ -14,7 +14,3 @@
       wait_for:
         port: 22
         search_regex: OpenSSH
-      vars:
-        ansible_connection: local
-        ansible_become: false
-        ansible_user: awx
