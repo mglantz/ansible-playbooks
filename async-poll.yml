@@ -8,9 +8,9 @@
     poll: 0
     register: sleep_result
     
-- name: Check on async task
-  async_status:
-    jid: "{{ sleep_result.ansible_job_id }}"
-  register: job_result
-  until: job_result.finished
-  retries: 60
+  - name: Check on async task
+    async_status:
+      jid: "{{ sleep_result.ansible_job_id }}"
+    register: job_result
+    until: job_result.finished
+    retries: 60
