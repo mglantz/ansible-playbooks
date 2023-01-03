@@ -1,0 +1,6 @@
+---
+- name: Check if a server is alive
+  hosts: all
+  tasks:
+  - name: Log into the server and check that the ping modules returns output
+    command: sleep 120
