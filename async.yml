@@ -1,0 +1,8 @@
+---
+- name: Asynchronious task
+  hosts: all
+  tasks:
+  - name: Sleep for 999 seconds
+    command: sleep 999
+    async: 999
+    poll: 0
