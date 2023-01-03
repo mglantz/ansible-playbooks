@@ -1,0 +1,16 @@
+---
+- name: Asynchronious task
+  hosts: all
+  tasks:
+  - name: Sleep for 60 seconds
+    command: sleep 60
+    async: 100
+    poll: 0
+    register: sleep_result
+    
+- name: Check on async task
+  async_status:
+    jid: "{{ sleep_result.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 60
