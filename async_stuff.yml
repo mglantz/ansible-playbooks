@@ -1,0 +1,30 @@
+---
+- name: Configure IPAM
+  hosts: ipam_hosts
+  vars:
+    stuff: value
+  tasks:
+  - name: IPAM things
+    ansible.builtin.debug:
+      - msg: "Configuration"
+
+- name: Configure loadbalancer
+  hosts: lb_hosts
+  vars:
+    stuff: value
+  tasks:
+  - name: LB things
+    ansible.builtin.debug:
+      - msg: "Configuration"
+    async: 99
+    poll: 0
+
+
+- name: Configure System F
+  hosts: f_hosts
+  vars:
+    stuff: value
+  tasks:
+  - name: F things
+    ansible.builtin.debug:
+      - msg: "Configuration"
