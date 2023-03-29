@@ -1,0 +1,18 @@
+- name: Async sleeping for batched_items
+  ansible.builtin.command: sleep {{ async_item }}
+  async: 45
+  poll: 0
+  loop: "{{ durations }}"
+  loop_control:
+    loop_var: "async_item"
+  register: async_results
+
+- name: Check sync status
+  async_status:
+    jid: "{{ async_result_item.ansible_job_id }}"
+  loop: "{{ async_results.results }}"
+  loop_control:
+    loop_var: "async_result_item"
+  register: async_poll_results
+  until: async_poll_results.finished
+  retries: 30
