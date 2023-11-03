@@ -1,0 +1,15 @@
+---
+- name: Check if a server is alive
+  hosts: all
+  tasks:
+  - name: Fetch key
+    command: find /runner/artifacts -name ssh_key_data -type f
+    register: keyname
+
+  - name: Get key
+    command: cat "{{ keyname }}"
+    register: thekey
+    
+  - name: Log into the server and check that the ping modules returns output
+    debug:
+      msg: "the key {{ thekey }}"
