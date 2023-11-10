@@ -1,0 +1,7 @@
+---
+- name: AAP API testing playbook
+  hosts: all
+  tasks:
+    - name: Print arguments passed via API to template
+      debug:
+        msg: "{{ var1 }} {{ var2 }}"
