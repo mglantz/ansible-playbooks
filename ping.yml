@@ -3,5 +3,5 @@
   hosts: all
   tasks:
   - name: Log into the server and check that the ping modules returns output
-    ping:
+    ansible.builtin.ping:
       data: pong from Ansible
