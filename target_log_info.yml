@@ -4,7 +4,7 @@
   tasks:
   - name: Set TARGET_LOG_INFO
     ansible.builtin.set_fact:
-      ansible_target_log_info: "demo123"
+      ansible_target_log_info: "job_id = {{ awx_job_id }} user = {{ awx_user_id }}"
   
   - name: Log into the server and check that the ping modules returns output
     ansible.builtin.ping:
