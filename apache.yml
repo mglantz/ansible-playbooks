@@ -9,5 +9,5 @@
     - name: Ensure the httpd service is enabled and started
       service:
         name: httpd
-        enabled: yes
         state: started
+        enabled: yes
