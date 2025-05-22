@@ -1,0 +1,7 @@
+---
+# Below play needs to be in the top of your playbooks.
+# It makes sense to set the eda_fqdn variable on the job_template level
+- name: Detect which EDA server is active and set eda_activation accordingly
+  hosts: localhost
+  roles:
+    - { role: mglantz.eda-ha, load_balancer_fqdn: "loadbalancer.sudo.net", eda_fqdn: "eda.sudo.net" }
