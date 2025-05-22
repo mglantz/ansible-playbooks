@@ -1,5 +1,0 @@
----
-# from GitHub, overriding the name and specifying a specific tag
-- name: mglantz.eda-ha
-  src: https://github.com/mglantz/role-private-test
-  version: main
