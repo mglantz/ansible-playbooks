@@ -1,0 +1,7 @@
+---
+- name: Integration debug play
+  hosts: "{{ target_host }}"
+  tasks:
+    - name: First task running
+      ansible.builtin.debug:
+        msg: "Extra variable was: {{ target_host }}"
