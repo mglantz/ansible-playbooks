@@ -1,6 +1,6 @@
 ---
 - name: Integration debug play
-  hosts: "{{ target_host }}"
+  hosts: all
   tasks:
     - name: First task running
       ansible.builtin.debug:
