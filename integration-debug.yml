@@ -4,4 +4,4 @@
   tasks:
     - name: First task running
       ansible.builtin.debug:
-        msg: "Extra variable was: {{ target_host }}"
+        msg: "Running playbook"
