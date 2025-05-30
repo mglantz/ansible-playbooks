@@ -1,0 +1,29 @@
+---
+# Below play needs to be in the top of your playbooks.
+# It makes sense to set the eda_fqdn variable on the job_template level
+- name: Detect which EDA server is active and set eda_activation accordingly
+  hosts: localhost
+  roles:
+    - { role: mglantz.eda-ha, load_balancer_fqdn: "loadbalancer.sudo.net", eda_fqdn: "eda.sudo.net" }
+
+- name: Site is up
+  hosts: all
+  vars:
+# Below variable needs to be added to the play which does your actual actions
+    eda_activation: "{{ hostvars['localhost']['eda_activation'] }}"
+  gather_facts: false
+  tasks:
+    - debug:
+        msg: "All is up and well"
+# Add below when statement for task that you want to control
+      when: eda_activation
+
+# Or similiar for a block
+    - block: 
+      - name: Do something else
+        ansible.builtin.debug:
+          msg: "Imaginary something else"
+      - name: Also do this
+        ansible.builtin.debug:
+          msg: "Also this thing (imaginary)"
+      when: eda_activation
