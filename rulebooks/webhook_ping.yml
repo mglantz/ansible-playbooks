@@ -1,0 +1,29 @@
+---
+# rulebooks/webhook_ping.yml
+# Commit to https://github.com/mglantz/ansible-playbooks under rulebooks/
+#
+# The "webhook" source below is replaced at activation time by the AAP event
+# stream (matched on the source name "webhook"), so host/port are only used
+# when the rulebook is run standalone with ansible-rulebook.
+#
+# Variables expected from the activation's extra_vars:
+#   org_name  - organization that owns the "Check if system is alive" template
+
+- name: Webhook triggered system check
+  hosts: all
+  sources:
+    - name: webhook
+      ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+
+  rules:
+    - name: Launch "Check if system is alive" on webhook
+      condition: event.payload is defined
+      action:
+        run_job_template:
+          name: Check if system is alive
+          organization: "{{ org_name }}"
+          job_args:
+            extra_vars:
+              webhook_message: "{{ event.payload.message | default('Triggered by webhook') }}"
