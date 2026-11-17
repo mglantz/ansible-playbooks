@@ -18,7 +18,7 @@
         port: 5000
 
   rules:
-    - name: Launch "Check if system is alive" on webhook
+    - name: Launch "Event action template" on webhook
       condition: event.payload is defined
       action:
         run_job_template:
