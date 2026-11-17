@@ -22,7 +22,7 @@
       condition: event.payload is defined
       action:
         run_job_template:
-          name: Check if system is alive
+          name: Event action
           organization: "{{ org_name }}"
           job_args:
             extra_vars:
