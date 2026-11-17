@@ -1,0 +1,17 @@
+---
+# pingpong.yml
+
+- name: Check if system is alive
+  hosts: all
+  gather_facts: false
+
+  vars:
+    webhook_message: "No message supplied (job was not started by the rulebook)"
+
+  tasks:
+    - name: Print the message passed on by the rulebook
+      ansible.builtin.debug:
+        msg: "Message from rulebook: {{ webhook_message }}"
+
+    - name: Ping the system
+      ansible.builtin.ping:
