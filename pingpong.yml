@@ -1,7 +1,12 @@
 ---
 # pingpong.yml
+# Commit to the root of https://github.com/mglantz/ansible-playbooks.
+# Used by the "Event action" job template, which the rulebook launches.
+#
+# The rulebook passes event.payload.message as webhook_message. The job
+# fails unless that message is exactly "OK" (case-sensitive).
 
-- name: Check if system is alive
+- name: Event action
   hosts: all
   gather_facts: false
 
@@ -12,6 +17,13 @@
     - name: Print the message passed on by the rulebook
       ansible.builtin.debug:
         msg: "Message from rulebook: {{ webhook_message }}"
+
+    - name: Fail unless the message from the rulebook is "OK"
+      ansible.builtin.assert:
+        that:
+          - webhook_message == "OK"
+        fail_msg: "Event rejected: expected message 'OK' but got '{{ webhook_message }}'"
+        success_msg: "Message is OK"
 
     - name: Ping the system
       ansible.builtin.ping:
